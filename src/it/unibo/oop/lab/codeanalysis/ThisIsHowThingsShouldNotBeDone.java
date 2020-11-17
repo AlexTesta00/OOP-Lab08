@@ -10,12 +10,16 @@ import java.util.Collection;
  * This code triggers static code analyzers. You should use it to see how things
  * SHOULD NOT be done.
  *
- * @author Danilo Pianini
- * @version 1.2
+ * 
+ * 
  *
  */
 public class ThisIsHowThingsShouldNotBeDone {
 
+    private static final int NUMBER_OF_CICLE = 43;
+    //Costruttore
+    private ThisIsHowThingsShouldNotBeDone() {
+    }
     /*
      * PMD complains:
      * 
@@ -43,7 +47,7 @@ public class ThisIsHowThingsShouldNotBeDone {
      * 
      * Missing Javadoc
      */
-    public static void main(String[] a) {
+    public static void main() {
         /*
          * PMD Complains:
          * 
@@ -61,8 +65,9 @@ public class ThisIsHowThingsShouldNotBeDone {
          * 
          * What does it mean "43"? It's a magic number!
          */
-        for (int i = 0; i < 43; i++)
+        for (int i = 0; i < NUMBER_OF_CICLE; i++) {
             c.add(new Object());
+        }
         /*
          * FindBugs complains
          * 
