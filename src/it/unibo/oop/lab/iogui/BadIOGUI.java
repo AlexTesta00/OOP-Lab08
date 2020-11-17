@@ -5,8 +5,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -42,9 +46,14 @@ public class BadIOGUI {
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Exercise 01.01
         mypanel.setLayout(new BoxLayout(mypanel, BoxLayout.X_AXIS));
         final JButton write = new JButton("Write on file");
         mypanel.add(write);
+
+        //Exercise 01.02
+        final JButton read = new JButton("Read");
+        mypanel.add(read);
         canvas.add(mypanel, BorderLayout.CENTER);
         /*
          * Handlers
@@ -67,6 +76,26 @@ public class BadIOGUI {
                 }
             }
         });
+
+        //Button read listener
+        read.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {  
+                try {
+                    final File f = new File(PATH);
+                    final List<String> data = Files.readAllLines(f.toPath());
+
+                    //Read all stream
+                    for (final String contents : data) {
+                        System.out.println(contents);
+                    }
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } });
+
     }
 
     private void display() {
