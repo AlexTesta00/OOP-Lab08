@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -33,20 +34,25 @@ public class MiniGUI {
      * 
      */
     public MiniGUI() {
-        final JPanel canvas2 = new JPanel();
-        canvas2.setLayout(new BoxLayout(canvas2, BoxLayout.X_AXIS));
-        final JButton write = new JButton("Print a random number on standard output");
-        final JButton second = new JButton("Click Me!!!");
-        canvas2.add(second, BorderLayout.CENTER);
-        frame.setContentPane(canvas2);
+        //MostContenitor
+        final JPanel canvas = new JPanel();
+        canvas.setLayout(new BorderLayout());
+        frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*
-         * Handlers
-         */
-        write.addActionListener(new ActionListener() {
+        //Exercise 01.01 & 01.02
+        final JPanel canvas2 = new JPanel();
+        canvas2.setLayout(new BoxLayout(canvas2, BoxLayout.PAGE_AXIS));
+        canvas.add(canvas2, BorderLayout.CENTER);
+        final JButton b1 = new JButton("Click Me!!!");
+        canvas2.add(b1);
+        final JTextField result = new JTextField();
+        canvas.add(result, BorderLayout.NORTH);
+        //Exercise 01.03
+        b1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(rng.nextInt());
+               result.setText(String.valueOf(rng.nextInt()));
             }
         });
     }
