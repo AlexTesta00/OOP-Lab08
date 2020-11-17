@@ -34,19 +34,22 @@ public class MiniGUI {
      * 
      */
     public MiniGUI() {
+
         //MostContenitor
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //Exercise 01.01 & 01.02
         final JPanel canvas2 = new JPanel();
-        canvas2.setLayout(new BoxLayout(canvas2, BoxLayout.PAGE_AXIS));
+        canvas2.setLayout(new BoxLayout(canvas2, BoxLayout.X_AXIS));
         canvas.add(canvas2, BorderLayout.CENTER);
         final JButton b1 = new JButton("Click Me!!!");
         canvas2.add(b1);
         final JTextField result = new JTextField();
         canvas.add(result, BorderLayout.NORTH);
+
         //Exercise 01.03
         b1.addActionListener(new ActionListener() {
 
@@ -55,6 +58,7 @@ public class MiniGUI {
                result.setText(String.valueOf(rng.nextInt()));
             }
         });
+
     }
 
     private void display() {
