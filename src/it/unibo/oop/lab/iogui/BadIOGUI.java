@@ -81,7 +81,7 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(final ActionEvent e) {  
+            public void actionPerformed(final ActionEvent e) { 
                 try {
                     final File f = new File(PATH);
                     final List<String> data = Files.readAllLines(f.toPath());
