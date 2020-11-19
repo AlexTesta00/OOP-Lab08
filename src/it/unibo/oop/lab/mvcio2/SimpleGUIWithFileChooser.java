@@ -1,11 +1,35 @@
 package it.unibo.oop.lab.mvcio2;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+
+import it.unibo.oop.lab.mvcio.Controller;
+
 /**
  * A very simple program using a graphical interface.
  * 
  */
 public final class SimpleGUIWithFileChooser {
 
+    private static final String TITLE = "My first Java GUI";
+    private final JFrame frame = new JFrame(TITLE);
+    private final Controller myfile = new Controller();
+    private static final int ERROR_DIALOG = 0;
+
+    public static void main(final String[] args) {
+        new SimpleGUIWithFileChooser();
+    }
     /*
      * TODO: Starting from the application in mvcio:
      * 
@@ -31,5 +55,78 @@ public final class SimpleGUIWithFileChooser {
      * update the UI: in this example the UI knows when should be updated, so
      * try to keep things separated.
      */
+
+    public SimpleGUIWithFileChooser() {
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int sw = (int) screen.getWidth();
+        final int sh = (int) screen.getHeight();
+        frame.setSize(sw / 2, sh / 2);
+        frame.setLocationByPlatform(true);
+
+        //Panel
+        final JPanel canvas = new JPanel();
+        canvas.setLayout(new BorderLayout());
+        canvas.setBorder(new TitledBorder("1 section"));
+        frame.setContentPane(canvas);
+
+        //ButtonArea (Browse) & UrlTextArea
+        final JPanel containerButtonBrowse = new JPanel();
+        final JButton browseButton = new JButton("Browse...");
+        final JTextArea urlTextArea = new JTextArea();
+
+        //Set Panel Options
+        containerButtonBrowse.setLayout(new BorderLayout());
+        containerButtonBrowse.setBorder(new TitledBorder("2 section"));
+        urlTextArea.setText(myfile.getPathFile());
+        urlTextArea.setEditable(false);
+        containerButtonBrowse.add(browseButton, BorderLayout.LINE_END);
+        containerButtonBrowse.add(urlTextArea, BorderLayout.CENTER);
+
+        //TextArea
+        final JTextArea input = new JTextArea();
+
+        //ButtonArea (save)
+        final JButton saveButton = new JButton("Save");
+
+        /*Handler*/
+
+        //SaveListener
+        saveButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(final ActionEvent e) {
+                myfile.write(input.getText());
+
+                //Clean the TextArea
+                input.setText("");
+            }
+
+        });
+
+        //BrowseListener
+        browseButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(final ActionEvent e) {
+                //FileChooser
+                final JFileChooser fileChooser = new JFileChooser();
+                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    myfile.setFile(fileChooser.getSelectedFile().getPath());
+                    urlTextArea.setText(fileChooser.getSelectedFile().getPath());
+                } else {
+                    new JOptionPane();
+                    //ErrorDialog
+                    JOptionPane.showMessageDialog(new JButton(), "Select Valid File", "Error", ERROR_DIALOG);
+                }
+            }
+
+        });
+
+
+        //Implements All GUI
+        canvas.add(containerButtonBrowse, BorderLayout.NORTH);
+        canvas.add(input, BorderLayout.CENTER);
+        canvas.add(saveButton, BorderLayout.SOUTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
 
 }

@@ -6,7 +6,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -76,16 +75,10 @@ public final class SimpleGUI {
         frame.setContentPane(canvas);
 
         //TextArea
-        final JPanel container = new JPanel();
         final JTextArea input = new JTextArea();
-        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
-        container.add(input);
 
-        //ButtonArea
-        final JPanel containerButton = new JPanel(); 
+        //ButtonArea (save) 
         final JButton saveButton = new JButton("Save");
-        containerButton.setLayout(new BorderLayout());
-        containerButton.add(saveButton);
 
         //ButtonListener
         saveButton.addActionListener(new ActionListener() {
@@ -101,8 +94,8 @@ public final class SimpleGUI {
 
 
         //Implements All GUI
-        canvas.add(container, BorderLayout.CENTER);
-        canvas.add(containerButton, BorderLayout.SOUTH);
+        canvas.add(input, BorderLayout.CENTER);
+        canvas.add(saveButton, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
