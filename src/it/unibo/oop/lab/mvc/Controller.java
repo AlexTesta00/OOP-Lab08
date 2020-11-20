@@ -14,7 +14,7 @@ public interface Controller {
 
     List<String> getHistory();
 
-    String printCurrentString();
+    String printCurrentString(String text);
     /*
      * This interface must model a simple controller responsible of I/O access. It
      * considers only the standard output, and it is able to print on it.
